@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title>Testing</title>
+	<!--<script type=text/javascript src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>-->
+	<script type=text/javascript src="jquery-1.4.4.min.js"></script>
+	<script type=text/javascript>
+		var otherWindow, base;
+		
+		jQuery.noConflict();
+		jQuery(document).ready(function() {		
+			jQuery('div').css("background-color","yellow");
+			jQuery('button').click(function(){
+				otherWindow = window.open("testing.html", "window"+Math.random());
+			});
+		jQuery( window ).bind( "load", function(){ check(); });
+		
+		var check = function () {
+			if (window.name != "base" ) {
+				base = window.opener;
+				otherWindow = window;
+			}
+			else base = window;
+		}
+		
+		});
+	</script>
+</head>
+<body>
+<div id="main">
+<button id="tryPopup" type="button">Pop!</button>
+</div>
+</body>
+</html>
