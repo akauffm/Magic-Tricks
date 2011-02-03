@@ -8,20 +8,30 @@
 		
 		jQuery.noConflict();
 		jQuery(document).ready(function() {		
+			
 			jQuery('div').css("background-color","yellow");
+			
 			jQuery('button').click(function(){
-				otherWindow = window.open("testing.html", "window"+Math.random());
+				otherWindow = window.open("testing.html", "window"+Math.random(), "top=" + Math.ceil(Math.random()*screen.height/4) +",left=" + Math.ceil(Math.random()*screen.width/4)+",width=200,height=200,location=no,menubar=no,scrollbars=no,status=no,toolbar=no");
 			});
-		jQuery( window ).bind( "load", function(){ check(); });
+			
+			jQuery( window ).bind( "load", function(){ check(); });
 		
-		var check = function () {
-			if (window.name != "base" ) {
-				base = window.opener;
-				otherWindow = window;
+			var move = function () {
+				alert("got here");
+			};
+		
+			var check = function () {
+				if (window.name != "base" ) {
+					base = window.opener;
+					otherWindow = window;
+					window.setInterval(function() {window.moveBy(0,4)},10);
+				}
+				else base = window;
 			}
-			else base = window;
-		}
-		
+			
+			
+			
 		});
 	</script>
 </head>
