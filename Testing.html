@@ -4,28 +4,37 @@
 	<!--<script type=text/javascript src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>-->
 	<script type=text/javascript src="jquery-1.4.4.min.js"></script>
 	<script type=text/javascript>
-		var otherWindow, base;
+		var otherWindow, base, mouseX, mouseY;
+		
+		var move = function () {
+			window.moveTo(base.mouseX,base.mouseY);
+		};
 		
 		jQuery.noConflict();
 		jQuery(document).ready(function() {		
+		
+			jQuery(document).mousemove(function(e){
+      			mouseX = e.pageX;
+      			mouseY = e.pageY;
+  			 }); 
 			
 			jQuery('div').css("background-color","yellow");
 			
 			jQuery('button').click(function(){
 				otherWindow = window.open("testing.html", "window"+Math.random(), "top=" + Math.ceil(Math.random()*screen.height/4) +",left=" + Math.ceil(Math.random()*screen.width/4)+",width=200,height=200,location=no,menubar=no,scrollbars=no,status=no,toolbar=no");
+				otherWindow.resizeTo(200,200);
 			});
 			
 			jQuery( window ).bind( "load", function(){ check(); });
 		
-			var move = function () {
-				alert("got here");
-			};
+			
 		
 			var check = function () {
 				if (window.name != "base" ) {
 					base = window.opener;
 					otherWindow = window;
-					window.setInterval(function() {window.moveBy(0,4)},10);
+					window.setInterval(move,10);
+					base.focus();
 				}
 				else base = window;
 			}
